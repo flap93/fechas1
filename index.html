@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fechas</title>
+  <style>
+    @media screen and (max-width: 768px) {
+
+      /* Responsive layout for screens smaller than 768px */
+      .parent-container {
+        flex-direction: column;
+        /* Stack children vertically */
+      }
+
+      .child-container {
+        width: 100%;
+        /* Full width for child containers */
+        margin-bottom: 20px;
+        /* Add spacing between child containers */
+      }
+    }
+  </style>
+  <script>
+
+
+    function onLoadHandler() {
+
+      iniciar();
+      styles();
+    }
+
+
+    function styles() {
+      // first container styles 
+      // PARENT container 
+      createBoxStylesParent("primerContenedor", {
+        display: "flex",
+        flexDirection: "column",
+        width: "80%",
+        height: "200px",
+        margin: "1 auto",
+        //border: "1px solid black"
+      });
+      // 2 PARENT IN 1 PARENT
+      createBoxStylesParent("inContainer1parent", {
+        display: "flex",
+        flexWrap: "wrap",
+        width: "80%",
+        height: "60px",
+        //border: "1px solid black"
+      });
+
+      // INPUT AND WORD inside 2 PARENT
+      createBoxStylesParent("date-input-container", {
+        width: "150px",
+        height: "50px",
+        border: "1px solid lightgray",
+        display: "flex",
+        justifyContent: "center"
+      });
+
+
+      createBoxStylesParent("wordISO", {
+        width: "150px",
+        height: "50px",
+        border: "1px solid lightgray",
+        display: "flex",
+        justifyContent: "center"
+      });
+
+      createStyles("date-input", {
+        width: "130px",
+        height: "30px",
+        border: "1px solid black",
+        marginTop: "8px",
+      });
+
+      createStyles("isodate", {
+        position: "relative",
+        bottom: "5px"
+      });
+
+      //---------------------
+
+
+    }
+    function iniciar() {
+      // CREATE FIRST BLOCK  OF THE PAGE
+      //1 parent container
+      createContainers("div", "primerContenedor");
+      createNodeTag("h1", "paragraph", "Ejemplo de control de input=date impreso en iso date");
+      addToParent("paragraph", "primerContenedor");
+
+      // 2 parent in 1 parent 
+      createContainers("div", "inContainer1parent")
+      addToParent("inContainer1parent", "primerContenedor");
+      // containers inside de 2 parent 
+      createContainers("div", "date-input-container");
+      createContainers("div", "wordISO");
+      addToParent("date-input-container", "inContainer1parent");
+      addToParent("wordISO", "inContainer1parent");
+
+      // Create nodes inside of the 2 parent 
+
+      createInput("input", "date-input")
+      addToParent("date-input", "date-input-container");
+
+      createNodeTag("h3", "isodate", "ISO date");
+      addToParent("isodate", "wordISO");
+
+      //----------------------------------------------
+      // 2BLOCK OF THE PAGE
+    }
+
+    // funcion add to the parent // anade tu etiqueta a un padre en especifico
+
+    function addToParent(nodoCreated, parentID) {
+      let ele = document.getElementById(nodoCreated);
+      let padre = document.getElementById(parentID);
+      padre.appendChild(ele);
+    }
+    // -------------------------------------
+    // crea contenedor padres
+    function createContainers(tipo, id) {
+      let ele = document.createElement(tipo);
+      ele.id = id;
+      document.body.appendChild(ele);
+      return ele;
+    }
+    // -------------------------------------
+
+    // crea nodos hijos
+    function createNodeTag(tipo, id, txt) {
+      let ele = document.createElement(tipo);
+      ele.id = id;
+      ele.innerHTML = txt;
+      document.body.appendChild(ele);
+      return ele;
+    }
+    // -------------------------------------
+
+    //  anadir estilo a los contenedores padres
+
+    //  FORMA NUEVA 
+    function createBoxStylesParent(id, styles) {
+      let getId = document.getElementById(id);
+      for (let prop in styles) {
+        getId.style[prop] = styles[prop];
+      }
+    }
+
+    // -------------------------------------
+    //  anadir estilo a los nodos
+
+    function createStyles(id, styles) {
+      let getId = document.getElementById(id);
+      for (let prop in styles) {
+        getId.style[prop] = styles[prop];
+      }
+    }
+
+    // -------------------------------------
+
+    //  create input
+    function createInput(tipo, id) {
+      let ele = document.createElement(tipo);
+      ele.id = id;
+      ele.type = "text";
+      ele.placeholder = "dd/mm/aaaa";
+      ele.style.border = "1px solid black";
+      document.body.appendChild(ele);
+    }
+
+    // -------------------------------------
+
+    window.onload = onLoadHandler;
+  </script>
+</head>
+
+<body></body>
+
+</html>
