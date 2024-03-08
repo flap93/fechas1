@@ -74,7 +74,7 @@
 
       //---------------------
       // SECOND CONTAINER and THIRD CONTAINER 
-      createBoxStylesParent(["segundoContenedor", "tercerContenedor"], {
+      createBoxStylesParent(["segundoContenedor", "tercerContenedor", "cuartoContenedor"], {
         display: "flex",
         flexDirection: "column",
         width: "80%",
@@ -153,17 +153,25 @@
       addToParent("tabla1", "segundoContenedor");
 
       //---------------------------
-    }
-
-
-    // 3 BLOCK OF THE PAGE 
-
-    function iniciar2() {
+      // 3 BLOCK OF THE PAGE 
+      // 3 contenedor
       createContainers("div", "tercerContenedor");
       createNodeTag("h2", "paragraph3", "Listado de fechas de menor a mayor");
       addToParent("paragraph3", "tercerContenedor");
       createTable("table", "tabla2", arrayFechas);
       addToParent("tabla2", "tercerContenedor");
+    }
+
+
+
+    function iniciar2() {
+      // 4 contenedor
+      createContainers("div", "cuartoContenedor");
+      createNodeTag("h2", "paragraph4", "Listado de fechas de mayor a menor");
+      addToParent("paragraph4", "cuartoContenedor");
+      createTable("table", "tabla3", arrayFechas);
+      addToParent("tabla3", "cuartoContenedor");
+
 
     }
 
@@ -229,7 +237,7 @@
       ele.style.border = "1px solid black";
       document.body.appendChild(ele);
     }
-
+    // Create  table  and  extract data from the array to insert them into the cells  of the table
     function createTable(tipo, id, array) {
       let ele = document.createElement(tipo);
       ele.id = id;
