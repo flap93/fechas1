@@ -23,23 +23,20 @@
     }
   </style>
   <script>
-
-
     function onLoadHandler() {
-
       iniciar();
+      iniciar1();
       styles();
     }
 
-
     function styles() {
-      // first container styles 
-      // PARENT container 
+      // first container styles
+      // PARENT container
       createBoxStylesParent("primerContenedor", {
         display: "flex",
         flexDirection: "column",
         width: "80%",
-        height: "200px",
+        height: "150px",
         margin: "1 auto",
         //border: "1px solid black"
       });
@@ -58,16 +55,15 @@
         height: "50px",
         border: "1px solid lightgray",
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
       });
-
 
       createBoxStylesParent("wordISO", {
         width: "150px",
         height: "50px",
         border: "1px solid lightgray",
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
       });
 
       createStyles("date-input", {
@@ -79,39 +75,92 @@
 
       createStyles("isodate", {
         position: "relative",
-        bottom: "5px"
+        bottom: "5px",
       });
 
       //---------------------
+      createBoxStylesParent("segundoContenedor", {
+        display: "flex",
+        flexDirection: "column",
+        width: "80%",
+        height: "200px",
+        margin: "1 auto",
+        // border: "1px solid black"
+      });
 
-
+      createStyles("tabla1", {
+        width: "1000px",
+        height: "30px",
+        border: "1px solid lightgray",
+      });
     }
+    // CREATE FIRST BLOCK  OF THE PAGE
     function iniciar() {
-      // CREATE FIRST BLOCK  OF THE PAGE
       //1 parent container
       createContainers("div", "primerContenedor");
-      createNodeTag("h1", "paragraph", "Ejemplo de control de input=date impreso en iso date");
+      createNodeTag(
+        "h1",
+        "paragraph",
+        "Ejemplo de control de input=date impreso en iso date"
+      );
       addToParent("paragraph", "primerContenedor");
 
-      // 2 parent in 1 parent 
-      createContainers("div", "inContainer1parent")
+      // 2 parent in 1 parent
+      createContainers("div", "inContainer1parent");
       addToParent("inContainer1parent", "primerContenedor");
-      // containers inside de 2 parent 
+      // containers inside de 2 parent
       createContainers("div", "date-input-container");
       createContainers("div", "wordISO");
       addToParent("date-input-container", "inContainer1parent");
       addToParent("wordISO", "inContainer1parent");
 
-      // Create nodes inside of the 2 parent 
+      // Create nodes inside of the 2 parent
 
-      createInput("input", "date-input")
+      createInput("input", "date-input");
       addToParent("date-input", "date-input-container");
 
       createNodeTag("h3", "isodate", "ISO date");
       addToParent("isodate", "wordISO");
+    }
 
-      //----------------------------------------------
-      // 2BLOCK OF THE PAGE
+    //----------------------------------------------
+    // 2BLOCK OF THE PAGE
+
+    function iniciar1() {
+      let arrayFechas = [
+        "15/03/2019",
+        "05/07/2019",
+        "30/06/2019",
+        "10/08/2019",
+        "16/09/2019",
+        "01/01/2019",
+        "22/10/2019",
+        "20/04/2019",
+        "25/05/2019",
+        "07/02/2019",
+        "28/11/2019",
+        "04/12/2019",
+        "23/03/2019",
+        "13/11/2019",
+        "01/09/2019",
+        "25/08/2019",
+        "17/02/2019",
+        "12/06/2019",
+        "10/01/2019",
+        "29/04/2019",
+        "19/12/2019",
+        "07/10/2019",
+        "06/05/2019",
+        "19/07/2019",
+      ];
+
+      createContainers("div", "segundoContenedor");
+      createNodeTag("h2", "paragraph2", "Listado de 24  fechas a 6 columnas");
+      addToParent("paragraph2", "segundoContenedor");
+      createTable("table", "tabla1", arrayFechas);
+      addToParent("tabla1", "segundoContenedor");
+
+      //---------------------------
     }
 
     // funcion add to the parent // anade tu etiqueta a un padre en especifico
@@ -143,7 +192,7 @@
 
     //  anadir estilo a los contenedores padres
 
-    //  FORMA NUEVA 
+    //  FORMA NUEVA
     function createBoxStylesParent(id, styles) {
       let getId = document.getElementById(id);
       for (let prop in styles) {
@@ -167,10 +216,34 @@
     function createInput(tipo, id) {
       let ele = document.createElement(tipo);
       ele.id = id;
-      ele.type = "text";
+      ele.type = "date";
       ele.placeholder = "dd/mm/aaaa";
       ele.style.border = "1px solid black";
       document.body.appendChild(ele);
+    }
+
+    function createTable(tipo, id, array) {
+      let ele = document.createElement(tipo);
+      ele.id = id;
+
+      document.body.appendChild(ele);
+      let getID = document.getElementById(id);
+      for (let i = 0; i < 4; i++) {
+        //rows
+        getID.insertRow();
+        // columns
+        for (let j = 0; j < 6; j++) {
+          let cells = getID.rows[i].insertCell();
+          //  this code calculate in which cell the content is going to
+          cells.textContent = array[i * 6 + j];
+          cells.style.border = "1px solid lightgray";
+          cells.style.padding = "3px";
+        }
+      }
+      getID.style.borderCollapse = "collapse";
+      getID.style.width = "100%";
+
+      return ele;
     }
 
     // -------------------------------------
