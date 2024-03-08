@@ -160,28 +160,40 @@
       addToParent("paragraph3", "tercerContenedor");
       createTable("table", "tabla2", arrayFechas);
       addToParent("tabla2", "tercerContenedor");
-    }
-
-
-
-    function iniciar2() {
       // 4 contenedor
       createContainers("div", "cuartoContenedor");
       createNodeTag("h2", "paragraph4", "Listado de fechas de mayor a menor");
       addToParent("paragraph4", "cuartoContenedor");
       createTable("table", "tabla3", arrayFechas);
       addToParent("tabla3", "cuartoContenedor");
+    }
+
+
+
+    function iniciar2() {
       // 5 contenedor 
       createContainers("div", "quintoContenedor");
       createNodeTag("h2", "paragraph5", "Diferencias en dias con la siguiente fecha, a dos caracteres sin decimales");
       addToParent("paragraph5", "quintoContenedor");
       createTable("table", "tabla4", arrayFechas);
       addToParent("tabla4", "quintoContenedor");
-
-
+      // 6 contenedor
+      createContainers("div", "sextoContenedor");
+      createNodeTag("h2", "paragraph6", "Mayor y menor diferencia entre dias");
+      addToParent("paragraph6", "sextoContenedor");
+      createNodeTag("div", "result-paragra6");
+      addToParent("result-paragra6", "sextoContenedor");
+      createNodeTag("h2", "paragraph7", "Fechas mas alta y mas baja");
+      addToParent("paragraph7", "sextoContenedor");
+      createNodeTag("div", "result-paragra7");
+      addToParent("result-paragra7", "sextoContenedor");
+      createNodeTag("h2", "paragraph8", "Dias entre la fecha mas alta y mas baja");
+      addToParent("paragraph8", "sextoContenedor");
+      createNodeTag("div", "result-paragra8");
+      addToParent("result-paragra8", "sextoContenedor");
     }
 
-    // funcion add to the parent // anade tu etiqueta a un padre en especifico
+    // funcion add to the parent // add your html tag to a specific parent container
 
     function addToParent(nodoCreated, parentID) {
       let ele = document.getElementById(nodoCreated);
@@ -189,7 +201,7 @@
       padre.appendChild(ele);
     }
     // -------------------------------------
-    // crea contenedor padres
+    //create parent containers
     function createContainers(tipo, id) {
       let ele = document.createElement(tipo);
       ele.id = id;
@@ -198,7 +210,7 @@
     }
     // -------------------------------------
 
-    // crea nodos hijos
+    // create children nodes
     function createNodeTag(tipo, id, txt) {
       let ele = document.createElement(tipo);
       ele.id = id;
@@ -208,7 +220,7 @@
     }
     // -------------------------------------
 
-    //  anadir estilo a los contenedores padres
+    //  add style to the parent containers
 
 
 
@@ -223,7 +235,7 @@
       });
     }
     // -------------------------------------
-    //  anadir estilo a los nodos
+    //  add styles just to the nodes
 
     function createStyles(id, styles) {
       let getId = document.getElementById(id);
