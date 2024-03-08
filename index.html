@@ -26,13 +26,14 @@
     function onLoadHandler() {
       iniciar();
       iniciar1();
+      iniciar2();
       styles();
     }
 
     function styles() {
       // first container styles
       // PARENT container
-      createBoxStylesParent("primerContenedor", {
+      createBoxStylesParent(["primerContenedor"], {
         display: "flex",
         flexDirection: "column",
         width: "80%",
@@ -41,7 +42,7 @@
         //border: "1px solid black"
       });
       // 2 PARENT IN 1 PARENT
-      createBoxStylesParent("inContainer1parent", {
+      createBoxStylesParent(["inContainer1parent"], {
         display: "flex",
         flexWrap: "wrap",
         width: "80%",
@@ -50,15 +51,8 @@
       });
 
       // INPUT AND WORD inside 2 PARENT
-      createBoxStylesParent("date-input-container", {
-        width: "150px",
-        height: "50px",
-        border: "1px solid lightgray",
-        display: "flex",
-        justifyContent: "center",
-      });
 
-      createBoxStylesParent("wordISO", {
+      createBoxStylesParent(["date-input-container", "wordISO"], {
         width: "150px",
         height: "50px",
         border: "1px solid lightgray",
@@ -79,20 +73,17 @@
       });
 
       //---------------------
-      createBoxStylesParent("segundoContenedor", {
+      // SECOND CONTAINER and THIRD CONTAINER 
+      createBoxStylesParent(["segundoContenedor", "tercerContenedor"], {
         display: "flex",
         flexDirection: "column",
         width: "80%",
         height: "200px",
         margin: "1 auto",
-        // border: "1px solid black"
-      });
 
-      createStyles("tabla1", {
-        width: "1000px",
-        height: "30px",
-        border: "1px solid lightgray",
-      });
+
+      })
+
     }
     // CREATE FIRST BLOCK  OF THE PAGE
     function iniciar() {
@@ -126,33 +117,34 @@
     //----------------------------------------------
     // 2BLOCK OF THE PAGE
 
+    var arrayFechas = [
+      "15/03/2019",
+      "05/07/2019",
+      "30/06/2019",
+      "10/08/2019",
+      "16/09/2019",
+      "01/01/2019",
+      "22/10/2019",
+      "20/04/2019",
+      "25/05/2019",
+      "07/02/2019",
+      "28/11/2019",
+      "04/12/2019",
+      "23/03/2019",
+      "13/11/2019",
+      "01/09/2019",
+      "25/08/2019",
+      "17/02/2019",
+      "12/06/2019",
+      "10/01/2019",
+      "29/04/2019",
+      "19/12/2019",
+      "07/10/2019",
+      "06/05/2019",
+      "19/07/2019",
+    ];
+
     function iniciar1() {
-      let arrayFechas = [
-        "15/03/2019",
-        "05/07/2019",
-        "30/06/2019",
-        "10/08/2019",
-        "16/09/2019",
-        "01/01/2019",
-        "22/10/2019",
-        "20/04/2019",
-        "25/05/2019",
-        "07/02/2019",
-        "28/11/2019",
-        "04/12/2019",
-        "23/03/2019",
-        "13/11/2019",
-        "01/09/2019",
-        "25/08/2019",
-        "17/02/2019",
-        "12/06/2019",
-        "10/01/2019",
-        "29/04/2019",
-        "19/12/2019",
-        "07/10/2019",
-        "06/05/2019",
-        "19/07/2019",
-      ];
 
       createContainers("div", "segundoContenedor");
       createNodeTag("h2", "paragraph2", "Listado de 24  fechas a 6 columnas");
@@ -161,6 +153,18 @@
       addToParent("tabla1", "segundoContenedor");
 
       //---------------------------
+    }
+
+
+    // 3 BLOCK OF THE PAGE 
+
+    function iniciar2() {
+      createContainers("div", "tercerContenedor");
+      createNodeTag("h2", "paragraph3", "Listado de fechas de menor a mayor");
+      addToParent("paragraph3", "tercerContenedor");
+      createTable("table", "tabla2", arrayFechas);
+      addToParent("tabla2", "tercerContenedor");
+
     }
 
     // funcion add to the parent // anade tu etiqueta a un padre en especifico
@@ -192,14 +196,18 @@
 
     //  anadir estilo a los contenedores padres
 
-    //  FORMA NUEVA
-    function createBoxStylesParent(id, styles) {
-      let getId = document.getElementById(id);
-      for (let prop in styles) {
-        getId.style[prop] = styles[prop];
-      }
-    }
 
+
+    function createBoxStylesParent(ids, styles) {
+      ids.forEach(id => {
+        let element = document.getElementById(id);
+        if (element) {
+          for (let prop in styles) {
+            element.style[prop] = styles[prop];
+          }
+        }
+      });
+    }
     // -------------------------------------
     //  anadir estilo a los nodos
 
@@ -238,6 +246,7 @@
           cells.textContent = array[i * 6 + j];
           cells.style.border = "1px solid lightgray";
           cells.style.padding = "3px";
+          cells.style.width = "1000px";
         }
       }
       getID.style.borderCollapse = "collapse";
@@ -246,7 +255,6 @@
       return ele;
     }
 
-    // -------------------------------------
 
     window.onload = onLoadHandler;
   </script>
