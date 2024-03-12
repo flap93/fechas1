@@ -73,8 +73,8 @@
       });
 
       //---------------------
-      // SECOND CONTAINER and THIRD CONTAINER 
-      createBoxStylesParent(["segundoContenedor", "tercerContenedor", "cuartoContenedor"], {
+      // SECOND CONTAINER , THIRD CONTAINER ,FOURTH CONTAINER and FIFTH CONTAINER
+      createBoxStylesParent(["segundoContenedor", "tercerContenedor", "cuartoContenedor", "quintoContenedor"], {
         display: "flex",
         flexDirection: "column",
         width: "80%",
@@ -153,25 +153,36 @@
       addToParent("tabla1", "segundoContenedor");
 
       //---------------------------
-      // 3 BLOCK OF THE PAGE 
+      // 3 BLOCK OF THE PAGE
       // 3 contenedor
       createContainers("div", "tercerContenedor");
       createNodeTag("h2", "paragraph3", "Listado de fechas de menor a mayor");
       addToParent("paragraph3", "tercerContenedor");
-      createTable("table", "tabla2", arrayFechas);
+      let ordMenorMayor = arrayFechas.slice().sort((a, b) => {
+        const dateA = new Date(a.split("/").reverse().join("-"));
+        const dateB = new Date(b.split("/").reverse().join("-"));
+        return dateA - dateB;
+      });
+      createTable("table", "tabla2", ordMenorMayor);
       addToParent("tabla2", "tercerContenedor");
       // 4 contenedor
       createContainers("div", "cuartoContenedor");
       createNodeTag("h2", "paragraph4", "Listado de fechas de mayor a menor");
       addToParent("paragraph4", "cuartoContenedor");
-      createTable("table", "tabla3", arrayFechas);
+      let ordMayorMenor = arrayFechas.slice().sort((a, b) => {
+
+        const dateA = new Date(a.split('/').reverse().join('-'));
+        const dateB = new Date(b.split('/').reverse().join('-'));
+        return dateB - dateA;
+      })
+      createTable("table", "tabla3", ordMayorMenor);
       addToParent("tabla3", "cuartoContenedor");
     }
 
 
-
+    //---------------------------------------------------
     function iniciar2() {
-      // 5 contenedor 
+      // 5 contenedor
       createContainers("div", "quintoContenedor");
       createNodeTag("h2", "paragraph5", "Diferencias en dias con la siguiente fecha, a dos caracteres sin decimales");
       addToParent("paragraph5", "quintoContenedor");
