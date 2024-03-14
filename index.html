@@ -6,21 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fechas</title>
   <style>
-    @media screen and (max-width: 768px) {
 
-      /* Responsive layout for screens smaller than 768px */
-      .parent-container {
-        flex-direction: column;
-        /* Stack children vertically */
-      }
-
-      .child-container {
-        width: 100%;
-        /* Full width for child containers */
-        margin-bottom: 20px;
-        /* Add spacing between child containers */
-      }
-    }
   </style>
   <script>
     function onLoadHandler() {
@@ -113,16 +99,24 @@
       createNodeTag("h3", "isodate", "ISO date");
       addToParent("isodate", "wordISO");
 
+      let getInput = document.getElementById("date-input");
+      getInput.addEventListener('change', changeInput)
 
+
+    }
+
+
+    function changeInput() {
+      document.getElementById("isodate").innerHTML = this.value;
     }
 
     //----------------------------------------------
     // 2BLOCK OF THE PAGE
     var fechas = [];
     var nFechas = 24;
+    var nCol = 6;
     function iniciar1() {
       createDates();
-      //dameFecha(fechas);
       createContainers("div", "segundoContenedor");
       createNodeTag("h2", "paragraph2", "Listado de 24  fechas a 6 columnas");
       addToParent("paragraph2", "segundoContenedor");
@@ -135,23 +129,13 @@
       createContainers("div", "tercerContenedor");
       createNodeTag("h2", "paragraph3", "Listado de fechas de menor a mayor");
       addToParent("paragraph3", "tercerContenedor");
-      // let ordMenorMayor = arrayFechas.slice().sort((a, b) => {
-      //   const dateA = new Date(a.split("/").reverse().join("-"));
-      //   const dateB = new Date(b.split("/").reverse().join("-"));
-      //   return dateA - dateB;
-      // });
-      createTable("table", "tabla2", fechas);
+      let ordMenorMayor = fechas.sort((a, b) => a.getTime() - b.getTime());
+      createTable("table", "tabla2", ordMenorMayor);
       addToParent("tabla2", "tercerContenedor");
       // 4 contenedor
       createContainers("div", "cuartoContenedor");
       createNodeTag("h2", "paragraph4", "Listado de fechas de mayor a menor");
       addToParent("paragraph4", "cuartoContenedor");
-      // let ordMayorMenor = arrayFechas.slice().sort((a, b) => {
-
-      //   const dateA = new Date(a.split('/').reverse().join('-'));
-      //   const dateB = new Date(b.split('/').reverse().join('-'));
-      //   return dateB - dateA;
-      // })
       createTable("table", "tabla3", fechas);
       addToParent("tabla3", "cuartoContenedor");
     }
@@ -188,20 +172,14 @@
       for (let j = 0; j < nFechas; j++) {
         var d = new Date(2019, 0, 1, 0, 0, 0); // constructor por campos
         d.setDate(d.getDate() + parseInt(aleatorio(0, 364))); // sumar dias
-        let convertir = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
-        fechas.push(convertir); // rellenar array
+        // let convertir = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+        fechas.push(d); // rellenar array
       }
       console.log('Array de los objetos fecha con indices numericos', fechas);
     }
 
 
-    // function dameFecha(fecha) {
-    //   // formato de salida de fecha DD-MM-YYYY
-    //   return fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear();
-    // }
-
     // funcion add to the parent // add your html tag to a specific parent container
-
     function addToParent(nodoCreated, parentID) {
       let ele = document.getElementById(nodoCreated);
       let padre = document.getElementById(parentID);
@@ -263,37 +241,7 @@
       document.body.appendChild(ele);
     }
     // Create  table  and  extract data from the array to insert them into the cells  of the table
-    // function createTable(tipo, id, array) {
-    //   let ele = document.createElement(tipo);
-    //   ele.id = id;
-
-    //   document.body.appendChild(ele);
-    //   let getID = document.getElementById(id);
-    //   for (let i = 0; i < 4; i++) {
-    //     //rows
-    //     getID.insertRow();
-    //     // columns
-    //     for (let j = 0; j < 6; j++) {
-    //       let convertir = array[i].getDate() + "-" + array[i].getMonth() + "-" + array[i].getFullYear();
-    //       //getID.rows[i].insertCell().innerHTML = convertir;
-
-    //       let cells = getID.rows[i].insertCell().innerHTML = convertir;
-    //       //  this code calculate in which cell the content is going to
-    //       cells.textContent = array[i * 6 + j];
-    //       cells.style.border = "1px solid lightgray";
-    //       cells.style.padding = "3px";
-    //       cells.style.width = "1000px";
-    //     }
-    //   }
-    //   getID.style.borderCollapse = "collapse";
-    //   getID.style.width = "100%";
-
-    //   return ele;
-    // }
-
-    // este codigo hace que recibe el array de las fechas sin convertir y de ahi las mete  en la tabla
-    // pero no se podra reutilizar 
-    function createTable(tipo, id, array) {
+    function createTable(tipo, id, fechas) {
       let ele = document.createElement(tipo);
       ele.id = id;
 
@@ -301,24 +249,19 @@
       let getID = document.getElementById(id);
 
       for (let i = 0; i < 4; i++) {
-        // Insertar fila en la tabla
-        let row = getID.insertRow();
+        let row = getID.insertRow(); // Insertar fila en la tabla
 
         for (let j = 0; j < 6; j++) {
-          let dateIndex = i * 6 + j;
-          // Verificar que aún hay fechas en el array
-          if (dateIndex < array.length) {
-            let convertir = array[dateIndex].getDate() + "-" + (array[dateIndex].getMonth() + 1) + "-" + array[dateIndex].getFullYear();
-            // Insertar celda en la fila
-            let cell = row.insertCell();
-            // Establecer contenido de la celda
-            cell.textContent = convertir;
-            // Establecer estilo de la celda
-            cell.style.border = "1px solid lightgray";
+          let dateIndex = i * 6 + j; // Calcular el índice correspondiente en el array de fechas
+          if (dateIndex < fechas.length) { // Verificar que aún hay fechas en el array
+            let convertir = fechas[dateIndex].getDate() + "-" + (fechas[dateIndex].getMonth() + 1) + "-" + fechas[dateIndex].getFullYear();
+
+            let cell = row.insertCell(); // Insertar celda en la fila
+            cell.textContent = convertir; // Establecer contenido de la celda
+            cell.style.border = "1px solid lightgray"; // Establecer estilo de la celda
             cell.style.padding = "3px";
           } else {
-            // Si no hay más fechas en el array, salir del bucle interno
-            break;
+            break; // Si no hay más fechas en el array, salir del bucle interno
           }
         }
       }
@@ -328,6 +271,7 @@
 
       return ele;
     }
+
 
     function aleatorio(a, b) {
       return Math.round(Math.random() * (b - a) + parseInt(a));
